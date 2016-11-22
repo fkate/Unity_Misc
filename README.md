@@ -23,11 +23,15 @@ The included methods are: (-d debug -g gizmo)
 
 (Quick note: some of the provided options differ between the two classes. Look at the method summarys for more details)
 
+# RepeatMesh.cs
+![My image](https://github.com/TPen/Unity_Misc/blob/master/RepeatMesh.png)
 
-# Normal gravitation
+A script for repeating a referenced mesh on the x y and z axis.
+Makes a single mesh out of all the repeated ones.
+Can automaticly add a box collider and Also allows it to save the generated mesh by hitting the "SaveMesh" boolean once.
 
-An old really basic script to show of the basic idea of rotating a rigidbody depending on the normal of the object below it and let it "fall" towards that object.
-
+A bit slower then CombineMeshes but also copies submeshes so multi material support will still work after.
+When finished either activate the "Lock" boolean or remove the script to stop the script from recreating the mesh.
 
 # ShaderHelperFunctions.cginc
 
