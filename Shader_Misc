@@ -1,0 +1,24 @@
+// Temporary collection of misc shader functions
+
+// Calculate a normal grid based on either world position or vertex position for Magica Voxel models
+// If using vertex position use the unmodified local normal
+fixed3 normalGrid(fixed3 normal, fixed3 vertPos, fixed scale, fixed edge){
+  // Scale depending on the world size per voxel
+	// Example: 1 voxel per unit is one scale (16 voxels per unit would mean a scale value of 16)
+	vertPos *= scale;
+
+  // Set up the faloff grid by using frac on the vertPos
+	// we want to apply it only to the other two axis
+	float3 grid;
+	grid.x = (1 - frac(vertPos.x)) * (abs(normal.y) + abs(normal.z));
+	grid.y = (1 - frac(vertPos.y)) * (abs(normal.z) + abs(normal.x));
+	grid.z = (1 - frac(vertPos.z)) * (abs(normal.x) + abs(normal.y));
+
+  // Add the original normal to it and bring it to a scale from -1 to 1
+	grid = ((1 - grid) + normal) * 2 - 1;
+
+	// Scale down the falloff and use a round (can be removed) if you want hard edges
+	grid *= round(smoothstep(edge, 1.0, abs(grid)));
+
+	return normalize(grid);
+}
